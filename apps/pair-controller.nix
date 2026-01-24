@@ -32,7 +32,7 @@ pkgs.writeShellScript "pair-controller" ''
         sleep 10
         echo "scan off"
         echo "quit"
-      } | bluetoothctl 2>&1 > /tmp/bt_scan.log
+      } | bluetoothctl > /tmp/bt_scan.log 2>&1
 
       echo "Scanning complete, looking for Pro Controller..."
 
