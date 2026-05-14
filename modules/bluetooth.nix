@@ -31,12 +31,17 @@ in
       powerOnBoot = true;
       settings = {
         General = {
-          Enable = "Source,Sink,Media,Socket";
           Experimental = true;
           # Auto-trust devices for easier pairing
           JustWorksRepairing = "always";
           # Allow faster reconnection
           FastConnectable = true;
+          # Keep adapter in bondable mode so link keys are persisted.
+          # Without this, bluez sets Bondable=Disabled right before each
+          # Pair Device mgmt command, and no [LinkKey] is written to
+          # /var/lib/bluetooth/<adapter>/<dev>/info, breaking reboot
+          # persistence for HID devices like the Switch Pro Controller.
+          AlwaysPairable = true;
         };
         Policy = {
           # Auto-enable controllers
@@ -59,6 +64,14 @@ in
 
     # Nintendo Switch Pro Controller support
     boot.kernelModules = [ "hid-nintendo" ];
+
+    # Disable Bluetooth ERTM so Pro Controllers (and other HID gamepads)
+    # actually persist their link key during bonding. Without this, the
+    # device pairs as Trusted but no [LinkKey] is written to
+    # /var/lib/bluetooth, so the bond is lost on the next reboot.
+    boot.extraModprobeConfig = ''
+      options bluetooth disable_ertm=Y
+    '';
 
     # Udev rules for Nintendo Switch Pro Controller
     services.udev.extraRules = ''
