@@ -54,7 +54,6 @@ let
     mkdir -p ~/.config/dolphin-emu
     cp -f ${dolphinConfigs.dolphinConfig} ~/.config/dolphin-emu/Dolphin.ini
     cp -f ${dolphinConfigs.dolphinGfxConfig} ~/.config/dolphin-emu/GFX.ini
-    cp -f ${dolphinConfigs.dolphinGCPadConfig} ~/.config/dolphin-emu/GCPadNew.ini
 
     exec ${pkgs.sway}/bin/sway
   '';

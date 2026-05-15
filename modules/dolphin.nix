@@ -61,35 +61,6 @@ let
     XFBToTextureEnable = True
   '';
 
-  dolphinGCPadConfig = pkgs.writeText "GCPadNew.ini" ''
-    [GCPad1]
-    Device = SDL/1/Nintendo Switch Pro Controller
-    Buttons/A = `Button E`
-    Buttons/B = `Button S`
-    Buttons/X = `Button W`
-    Buttons/Y = `Button N`
-    Buttons/Z = `Trigger R`
-    Buttons/Start = `Start`
-    Main Stick/Up = `Left Y+`
-    Main Stick/Down = `Left Y-`
-    Main Stick/Left = `Left X-`
-    Main Stick/Right = `Left X+`
-    Main Stick/Calibration = 100.00 141.42 100.00 141.42 100.00 141.42 100.00 141.42
-    C-Stick/Up = `Right Y+`
-    C-Stick/Down = `Right Y-`
-    C-Stick/Left = `Right X-`
-    C-Stick/Right = `Right X+`
-    C-Stick/Calibration = 100.00 141.42 100.00 141.42 100.00 141.42 100.00 141.42
-    Triggers/L = `Shoulder L`
-    Triggers/R = `Shoulder R`
-    Triggers/L-Analog = `Trigger L`
-    Triggers/R-Analog = `Trigger R`
-    D-Pad/Up = `Pad N`
-    D-Pad/Down = `Pad S`
-    D-Pad/Left = `Pad W`
-    D-Pad/Right = `Pad E`
-  '';
-
 in
 {
   options.services.gamecube-emulator = {
@@ -157,7 +128,7 @@ in
   config = lib.mkIf cfg.enable {
     # Dolphin config files exposed for kiosk script
     services.gamecube-emulator._dolphinConfigs = {
-      inherit dolphinConfig dolphinGfxConfig dolphinGCPadConfig;
+      inherit dolphinConfig dolphinGfxConfig;
     };
 
     # Packages
