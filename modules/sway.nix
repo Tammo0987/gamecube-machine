@@ -8,6 +8,7 @@
 let
   cfg = config.services.gamecube-emulator;
   dolphinConfigs = cfg._dolphinConfigs;
+  launcher = pkgs.callPackage ../launcher { };
 
   swayConfig = pkgs.writeText "sway-kiosk-config" ''
     output * bg #000000 solid_color
@@ -15,7 +16,7 @@ let
     # Hide cursor after 1 second of inactivity
     seat * hide_cursor 1000
 
-    exec ${pkgs.dolphin-emu}/bin/dolphin-emu
+    exec ${launcher}/bin/gamecube-launcher --games-dir ${cfg.gamesDirectory}
 
     # Dolphin main window - fullscreen
     for_window [app_id="dolphin-emu"] fullscreen enable

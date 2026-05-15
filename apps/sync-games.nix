@@ -21,12 +21,15 @@ pkgs.writeShellScript "sync-games" ''
 
   ${lib.ssh}/bin/ssh "$USER@$HOST" "mkdir -p $REMOTE_DIR"
 
-  step "Syncing games..."
+  step "Syncing games and cover art..."
   ${pkgs.rsync}/bin/rsync -azh --progress \
     --include="*.iso" --include="*.ISO" \
     --include="*.gcm" --include="*.GCM" \
     --include="*.wbfs" --include="*.WBFS" \
     --include="*.rvz" --include="*.RVZ" \
+    --include="*.jpg" --include="*.JPG" \
+    --include="*.jpeg" --include="*.JPEG" \
+    --include="*.png" --include="*.PNG" \
     --exclude="*" \
     "$LOCAL_DIR/" "$USER@$HOST:$REMOTE_DIR/" 2>&1 | \
     grep -v "^$" | grep -v "^sending" | grep -v "^total size" | grep -v "^sent" || true

@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./modules/dolphin.nix
+    ./modules/launcher.nix
     ./modules/sway.nix
     ./modules/controller.nix
     ./modules/bluetooth.nix
