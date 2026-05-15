@@ -1,0 +1,13 @@
+[package]
+name = "gamecube-launcher"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+macroquad = "0.4"
+gilrs = "0.11"
+image = { version = "0.24", default-features = false, features = ["jpeg", "png"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
